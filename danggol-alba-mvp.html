@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>단골알바 — 골목상권 시니어 초단기 매칭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" rel="stylesheet">
+<style>
+  :root {
+    --brand: #E65C00;
+    --brand-light: #FFF4EE;
+    --brand-mid: #FF8C42;
+    --cream: #FBF7F2;
+    --cream-dark: #F3EDE4;
+    --ink: #1A1209;
+    --ink-mid: #4A3B2C;
+    --ink-light: #8C7A68;
+    --ink-faint: #C4B5A5;
+    --kakao: #FEE500;
+    --kakao-dark: #3B1E08;
+    --border: rgba(90,60,30,0.12);
+    --border-mid: rgba(90,60,30,0.22);
+    --success: #2E7D32;
+    --success-bg: #E8F5E9;
+    --danger: #C62828;
+    --danger-bg: #FFEBEE;
+    --info: #1565C0;
+    --info-bg: #E3F2FD;
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 18px;
+    --shadow: 0 2px 12px rgba(90,60,30,0.10);
+    --shadow-lg: 0 8px 32px rgba(90,60,30,0.14);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── GLOBAL HEADER ── */
+  .app-header {
+    background: var(--ink);
+    padding: 0 20px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .app-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--kakao);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .app-logo-dot {
+    width: 8px; height: 8px;
+    background: var(--brand);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .header-badge {
+    font-size: 11px;
+    background: var(--brand);
+    color: #fff;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── TAB BAR ── */
+  .tab-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    position: sticky;
+    top: 54px;
+    z-index: 99;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 8px 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    user-select: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab-btn i { font-size: 20px; }
+  .tab-btn.active {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+  }
+  .tab-btn:hover:not(.active) { background: var(--cream); }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+  .screen-inner { padding: 16px 16px 80px; max-width: 640px; margin: 0 auto; }
+
+  /* ── NOTICE BAR ── */
+  .notice-bar {
+    background: var(--brand-light);
+    border: 1px solid rgba(230,92,0,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 13px;
+    font-size: 12.5px;
+    color: var(--brand);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .notice-bar i { font-size: 15px; flex-shrink: 0; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-bottom: 10px;
+  }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .stat-card.brand { background: var(--brand); border-color: var(--brand); }
+  .stat-val {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-card.brand .stat-val { color: #fff; }
+  .stat-label { font-size: 11px; color: var(--ink-light); font-weight: 500; }
+  .stat-card.brand .stat-label { color: rgba(255,255,255,0.75); }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  /* ── FORM ── */
+  .form-row { margin-bottom: 12px; }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin-bottom: 5px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    background: var(--cream);
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--brand);
+    background: #fff;
+  }
+  .form-textarea { resize: none; height: 72px; line-height: 1.5; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .btn-primary:hover { background: #CC5000; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { background: var(--ink-faint); cursor: not-allowed; }
+  .btn-sm {
+    padding: 5px 11px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-accept { background: var(--success-bg); color: var(--success); border-color: #A5D6A7; }
+  .btn-accept:hover { background: #C8E6C9; }
+  .btn-reject { background: var(--danger-bg); color: var(--danger); border-color: #FFCDD2; }
+  .btn-reject:hover { background: #FFCDD2; }
+  .btn-outline {
+    width: 100%;
+    padding: 12px;
+    background: var(--cream);
+    color: var(--brand);
+    border: 1.5px solid var(--brand);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn-outline:hover { background: var(--brand-light); }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .badge-open { background: #FFF8E1; color: #F57F17; }
+  .badge-matched { background: var(--info-bg); color: var(--info); }
+  .badge-applied { background: var(--success-bg); color: var(--success); }
+  .badge-closed { background: var(--cream-dark); color: var(--ink-light); }
+  .badge-active { background: var(--success-bg); color: var(--success); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+  /* ── JOB CARD (owner) ── */
+  .recruit-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+  }
+  .recruit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .recruit-biz {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .recruit-meta { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+  .applicant-section { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+  .applicant-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .applicant-row:last-child { border-bottom: none; }
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .avatar-amber { background: #FFF3E0; color: #E65100; }
+  .avatar-blue  { background: var(--info-bg); color: var(--info); }
+  .avatar-green { background: var(--success-bg); color: var(--success); }
+  .avatar-gray  { background: var(--cream-dark); color: var(--ink-mid); }
+  .applicant-info { flex: 1; min-width: 0; }
+  .applicant-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .applicant-sub { font-size: 11px; color: var(--ink-light); margin-top: 1px; }
+  .applicant-btns { display: flex; gap: 5px; }
+
+  /* ── JOB CARD (senior) ── */
+  .job-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .job-card:hover { border-color: rgba(230,92,0,0.4); }
+  .job-card.is-applied { border-color: var(--brand); border-width: 1.5px; }
+  .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .job-biz {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .job-type { font-size: 12.5px; color: var(--ink-mid); margin-bottom: 8px; }
+  .job-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .job-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 9px;
+    font-size: 12px;
+    color: var(--ink-mid);
+  }
+  .job-chip i { font-size: 13px; }
+  .job-pay {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--brand);
+    font-family: 'Noto Serif KR', serif;
+  }
+  .job-note { font-size: 12px; color: var(--ink-light); margin-top: 5px; line-height: 1.5; }
+
+  /* ── KAKAO PANEL ── */
+  .kakao-panel {
+    background: var(--kakao);
+    border-radius: var(--radius);
+    padding: 15px 16px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kakao-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .kakao-icon {
+    width: 26px; height: 26px;
+    background: var(--kakao-dark);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kakao-icon i { font-size: 15px; color: var(--kakao); }
+  .kakao-brand {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--kakao-dark);
+  }
+  .kakao-body {
+    font-size: 13px;
+    color: var(--kakao-dark);
+    line-height: 1.7;
+  }
+  .kakao-time {
+    font-size: 11px;
+    color: rgba(59,30,8,0.55);
+    margin-top: 8px;
+  }
+  .kakao-wave {
+    position: absolute;
+    right: -24px; top: -24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    pointer-events: none;
+  }
+
+  /* ── SENDING ANIMATION ── */
+  .sending-overlay {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+  }
+  .sending-overlay.show { display: flex; }
+  .radar {
+    position: relative;
+    width: 110px; height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--brand);
+    opacity: 0;
+    animation: radarPulse 2.2s ease-out infinite;
+  }
+  .radar-ring:nth-child(1) { width: 40px; height: 40px; animation-delay: 0s; }
+  .radar-ring:nth-child(2) { width: 68px; height: 68px; animation-delay: 0.45s; }
+  .radar-ring:nth-child(3) { width: 100px; height: 100px; animation-delay: 0.9s; }
+  @keyframes radarPulse {
+    0%   { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(1);   opacity: 0; }
+  }
+  .radar-center {
+    width: 42px; height: 42px;
+    background: var(--brand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 0 0 4px rgba(230,92,0,0.15);
+  }
+  .radar-center i { font-size: 22px; color: #fff; }
+  .sending-counter {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .sending-label { font-size: 13px; color: var(--ink-light); text-align: center; }
+
+  /* ── SEND SUCCESS ── */
+  .send-success-box {
+    display: none;
+    background: var(--brand-light);
+    border: 1px solid rgba(230,92,0,0.25);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--brand);
+    align-items: center;
+    gap: 8px;
+  }
+  .send-success-box.show { display: flex; }
+
+  /* ── NOTIFY LOG ── */
+  .log-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-item:last-child { border-bottom: none; }
+  .log-time { font-size: 11px; color: var(--ink-faint); min-width: 34px; flex-shrink: 0; }
+  .log-info { flex: 1; min-width: 0; }
+  .log-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .log-sub { font-size: 11.5px; color: var(--ink-light); margin-top: 1px; }
+
+  /* ── SENIOR POOL ── */
+  .pool-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pool-item:last-child { border-bottom: none; }
+  .pool-info { flex: 1; }
+  .pool-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .pool-sub { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+  .pool-tags { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+  .pool-tag {
+    background: var(--cream-dark);
+    color: var(--ink-mid);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 36px 16px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+  .empty-state i { font-size: 32px; display: block; margin-bottom: 8px; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--brand-light);
+    border: 1px solid rgba(230,92,0,0.22);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin: 12px 0;
+  }
+  .highlight-box strong { color: var(--brand); }
+
+  /* ── REALTIME DOT ── */
+  .live-dot {
+    width: 7px; height: 7px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    box-shadow: 0 0 0 0 rgba(76,175,80,0.6);
+    animation: livePulse 1.5s ease-out infinite;
+  }
+  @keyframes livePulse {
+    0%   { box-shadow: 0 0 0 0 rgba(76,175,80,0.6); }
+    70%  { box-shadow: 0 0 0 7px rgba(76,175,80,0); }
+    100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: #fff;
+    padding: 11px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 999;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── MATCHING INDICATOR ── */
+  .match-flash {
+    animation: matchFlash 0.5s ease;
+  }
+  @keyframes matchFlash {
+    0%   { background: #FFF3E0; }
+    100% { background: #fff; }
+  }
+
+  @media (max-width: 400px) {
+    .stat-val { font-size: 22px; }
+    .form-row-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── GLOBAL HEADER ── -->
+<header class="app-header">
+  <div class="app-logo">
+    <span class="app-logo-dot"></span>
+    단골알바
+  </div>
+  <span class="header-badge">MVP 데모</span>
+</header>
+
+<!-- ── TAB BAR ── -->
+<nav class="tab-bar" role="tablist">
+  <button class="tab-btn active" onclick="showTab('owner')" id="tab-owner" role="tab" aria-selected="true">
+    <i class="ti ti-building-store" aria-hidden="true"></i>소상공인
+  </button>
+  <button class="tab-btn" onclick="showTab('senior')" id="tab-senior" role="tab" aria-selected="false">
+    <i class="ti ti-user-heart" aria-hidden="true"></i>시니어 구직자
+  </button>
+  <button class="tab-btn" onclick="showTab('admin')" id="tab-admin" role="tab" aria-selected="false">
+    <i class="ti ti-dashboard" aria-hidden="true"></i>운영 현황
+  </button>
+</nav>
+
+<!-- ════════════════════════ OWNER SCREEN ════════════════════════ -->
+<div class="screen active" id="screen-owner" role="tabpanel">
+<div class="screen-inner">
+
+  <div class="notice-bar">
+    <i class="ti ti-send" aria-hidden="true"></i>
+    공고 등록 즉시 반경 1km 이내 시니어에게 카카오톡 자동 발송됩니다
+  </div>
+
+  <div class="section-title">오늘의 현황</div>
+  <div class="stat-row">
+    <div class="stat-card brand">
+      <div class="stat-val" id="o-stat-posts">2</div>
+      <div class="stat-label">등록 공고</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="o-stat-sent">18</div>
+      <div class="stat-label">알림 발송</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="o-stat-apps">5</div>
+      <div class="stat-label">지원자 수</div>
+    </div>
+  </div>
+
+  <!-- POST FORM -->
+  <div class="section-title">신규 공고 등록</div>
+  <div class="card">
+    <div class="form-row">
+      <label class="form-label" for="inp-type">업종 선택</label>
+      <select class="form-select" id="inp-type">
+        <option>음식점 (홀서빙)</option>
+        <option>음식점 (주방보조)</option>
+        <option>카페 (음료 제조)</option>
+        <option>편의점 (계산/진열)</option>
+        <option>마트 (상품 정리/포장)</option>
+        <option>세탁소 (보조)</option>
+        <option>꽃집 (포장/배달 보조)</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="inp-biz">가게 이름</label>
+      <input class="form-input" id="inp-biz" type="text" placeholder="예: 할머니 순대국" value="">
+    </div>
+    <div class="form-row-2">
+      <div class="form-row" style="margin-bottom:0">
+        <label class="form-label" for="inp-date">근무 일시</label>
+        <input class="form-input" id="inp-date" type="text" placeholder="예: 오늘 11:30~14:00" value="">
+      </div>
+      <div class="form-row" style="margin-bottom:0">
+        <label class="form-label" for="inp-pay">시급</label>
+        <input class="form-input" id="inp-pay" type="text" placeholder="예: 12,000원" value="">
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:12px">
+      <label class="form-label" for="inp-count">모집 인원</label>
+      <select class="form-select" id="inp-count">
+        <option value="1">1명</option>
+        <option value="2">2명</option>
+        <option value="3">3명</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="inp-note">요청 사항 (선택)</label>
+      <textarea class="form-textarea" id="inp-note" placeholder="예: 무거운 것 없어요. 주문 받고 서빙만 도와주시면 됩니다."></textarea>
+    </div>
+    <button class="btn-primary" id="post-btn" onclick="postJob()">
+      <i class="ti ti-send" aria-hidden="true"></i>원터치 공고 등록 + 카카오톡 자동 발송
+    </button>
+  </div>
+
+  <!-- SENDING ANIMATION -->
+  <div class="sending-overlay" id="sending-overlay">
+    <div class="radar">
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-center"><i class="ti ti-brand-kakao" aria-hidden="true"></i></div>
+    </div>
+    <div class="sending-counter" id="send-counter">0명</div>
+    <div class="sending-label" id="send-label">반경 1km 이내 시니어에게 발송 중…</div>
+  </div>
+
+  <!-- KAKAO RESULT -->
+  <div id="kakao-result" style="display:none">
+    <div class="kakao-panel" id="kakao-preview">
+      <div class="kakao-wave" id="kw1"></div>
+      <div class="kakao-wave" id="kw2"></div>
+      <div class="kakao-header">
+        <div class="kakao-icon"><i class="ti ti-brand-kakao" aria-hidden="true"></i></div>
+        <div class="kakao-brand">단골알바 알림</div>
+      </div>
+      <div class="kakao-body" id="kakao-msg"></div>
+      <div class="kakao-time" id="kakao-time"></div>
+    </div>
+    <div class="send-success-box show" id="success-box">
+      <i class="ti ti-check" aria-hidden="true"></i>
+      <span><strong id="success-count">0</strong>명 발송 완료 · 평균 응답 약 8분 소요 · 알림 탭에서 실시간 확인</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- JOB LIST (owner view) -->
+  <div class="section-title">내 공고 · 지원자 관리</div>
+  <div id="owner-job-list"></div>
+
+</div>
+</div>
+
+<!-- ════════════════════════ SENIOR SCREEN ════════════════════════ -->
+<div class="screen" id="screen-senior" role="tabpanel">
+<div class="screen-inner">
+
+  <div class="notice-bar">
+    <i class="ti ti-map-pin" aria-hidden="true"></i>
+    내 위치 기준 도보 15분(1km) 이내 공고만 표시됩니다
+  </div>
+
+  <div class="section-title">
+    <span class="live-dot"></span>받은 카카오 알림
+  </div>
+  <div id="senior-kakao-list"></div>
+
+  <div class="divider"></div>
+
+  <div class="section-title">근처 열린 자리</div>
+  <div id="senior-job-list"></div>
+
+</div>
+</div>
+
+<!-- ════════════════════════ ADMIN SCREEN ════════════════════════ -->
+<div class="screen" id="screen-admin" role="tabpanel">
+<div class="screen-inner">
+
+  <div class="notice-bar">
+    <i class="ti ti-chart-bar" aria-hidden="true"></i>
+    <span><span class="live-dot"></span>실시간 매칭 현황 · 오늘 기준</span>
+  </div>
+
+  <div class="section-title">오늘의 매칭 지표</div>
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-val" id="a-stat1">3</div>
+      <div class="stat-label">등록 공고</div>
+    </div>
+    <div class="stat-card brand">
+      <div class="stat-val" id="a-stat2">24</div>
+      <div class="stat-label">알림 발송</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="a-stat3">7</div>
+      <div class="stat-label">매칭 완료</div>
+    </div>
+  </div>
+
+  <div class="section-title">실시간 알림 발송 로그</div>
+  <div class="card" id="notify-log-wrap">
+    <div id="notify-log"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title">등록 시니어 인력풀 <span style="font-weight:400;color:var(--ink-light);font-size:10px;text-transform:none;letter-spacing:0">(반경 1km)</span></div>
+  <div class="card" id="senior-pool-wrap">
+    <div id="senior-pool"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <i class="ti ti-check" aria-hidden="true"></i><span id="toast-msg"></span>
+</div>
+
+<script>
+/* ── DATA ── */
+let jobs = [
+  {
+    id: 1,
+    type: "음식점 (홀서빙)", biz: "할머니 순대국",
+    date: "오늘 11:30~14:00", pay: "12,000원", count: 1,
+    note: "무거운 것 없어요. 주문 받고 서빙만 도와주시면 됩니다.",
+    dist: "도보 8분", status: "open",
+    applicants: [
+      { name: "김순자", age: 67, avatarClass: "avatar-amber", applied: true, accepted: null },
+      { name: "박영희", age: 63, avatarClass: "avatar-blue",  applied: true, accepted: null },
+    ]
+  },
+  {
+    id: 2,
+    type: "카페 (음료 제조)", biz: "골목길 커피",
+    date: "오늘 14:00~17:00", pay: "11,000원", count: 1,
+    note: "음료 제조 경험 있으시면 좋아요. 친절한 분 환영!",
+    dist: "도보 5분", status: "matched",
+    applicants: [
+      { name: "이정숙", age: 61, avatarClass: "avatar-green", applied: true, accepted: true },
+    ]
+  },
+];
+
+const SENIORS = [
+  { name: "김순자", age: 67, dist: "750m", skills: ["홀서빙", "계산"], available: "평일 오전·오후", avatarClass: "avatar-amber" },
+  { name: "박영희", age: 63, dist: "600m", skills: ["서빙", "청소보조"], available: "주말 포함 가능",   avatarClass: "avatar-blue"  },
+  { name: "이정숙", age: 61, dist: "400m", skills: ["음료", "계산"],    available: "매일 오후",       avatarClass: "avatar-green" },
+  { name: "최명순", age: 70, dist: "900m", skills: ["계산", "상품정리"], available: "오전만",         avatarClass: "avatar-gray"  },
+];
+
+const NOTIFY_SEED = [
+  { time: "11:42", name: "김순자",  job: "할머니 순대국", status: "지원함",  sc: "badge-applied" },
+  { time: "11:40", name: "이정숙",  job: "골목길 커피",   status: "매칭됨",  sc: "badge-matched" },
+  { time: "11:38", name: "박영희",  job: "할머니 순대국", status: "지원함",  sc: "badge-applied" },
+  { time: "11:35", name: "최명순",  job: "할머니 순대국", status: "확인함",  sc: "badge-closed"  },
+  { time: "11:33", name: "이정숙",  job: "골목길 커피",   status: "지원함",  sc: "badge-applied" },
+];
+let notifyLog = [...NOTIFY_SEED];
+
+/* ── STATE ── */
+let adminStats = { posts: 3, sent: 24, matched: 7 };
+let seniorName = "김순자"; // currently logged-in senior (demo)
+
+/* ── HELPERS ── */
+function toast(msg, icon = "ti-check") {
+  const el = document.getElementById("toast");
+  document.getElementById("toast-msg").textContent = msg;
+  el.querySelector("i").className = `ti ${icon}`;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 2800);
+}
+
+function nowTime() {
+  const d = new Date();
+  return `${d.getHours()}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
+function calcStats() {
+  const posts = jobs.length;
+  const apps  = jobs.reduce((s, j) => s + j.applicants.filter(a => a.applied).length, 0);
+  document.getElementById("o-stat-posts").textContent = posts;
+  document.getElementById("o-stat-apps").textContent  = apps;
+}
+
+/* ── TAB SWITCH ── */
+function showTab(t) {
+  ["owner", "senior", "admin"].forEach(n => {
+    document.getElementById("tab-" + n).classList.toggle("active", n === t);
+    document.getElementById("tab-" + n).setAttribute("aria-selected", n === t);
+    document.getElementById("screen-" + n).classList.toggle("active", n === t);
+  });
+  if (t === "senior") renderSenior();
+  if (t === "admin")  renderAdmin();
+  if (t === "owner")  renderOwnerJobs();
+}
+
+/* ══════════════════════════ OWNER ══════════════════════════ */
+function renderOwnerJobs() {
+  const el = document.getElementById("owner-job-list");
+  if (!jobs.length) {
+    el.innerHTML = `<div class="empty-state"><i class="ti ti-clipboard-off"></i>등록된 공고가 없습니다</div>`;
+    return;
+  }
+  el.innerHTML = jobs.map(j => {
+    const applied = j.applicants.filter(a => a.applied);
+    return `
+    <div class="recruit-card" id="rcard-${j.id}">
+      <div class="recruit-header">
+        <div>
+          <div class="recruit-biz">${j.biz}</div>
+          <div class="recruit-meta">${j.type} · ${j.date} · ${j.pay}</div>
+        </div>
+        <span class="badge ${j.status === "matched" ? "badge-matched" : "badge-open"}">
+          ${j.status === "matched" ? "매칭완료" : "모집중"}
+        </span>
+      </div>
+      ${applied.length ? `
+        <div class="applicant-section">
+          <div class="section-title" style="margin-bottom:6px">지원자 ${applied.length}명</div>
+          ${applied.map(a => `
+            <div class="applicant-row" id="arow-${j.id}-${a.name}">
+              <div class="avatar ${a.avatarClass}">${a.name[0]}</div>
+              <div class="applicant-info">
+                <div class="applicant-name">${a.name} (${a.age}세)
+                  ${a.accepted === true  ? '<span style="color:var(--success);font-size:12px"> · 수락됨 ✓</span>'  : ""}
+                  ${a.accepted === false ? '<span style="color:var(--danger);font-size:12px"> · 거절됨</span>' : ""}
+                </div>
+                <div class="applicant-sub">카카오 알림으로 접수 · 방금 전</div>
+              </div>
+              ${a.accepted === null ? `
+                <div class="applicant-btns">
+                  <button class="btn-sm btn-accept" onclick="handleApplicant(${j.id},'${a.name}',true)">수락</button>
+                  <button class="btn-sm btn-reject" onclick="handleApplicant(${j.id},'${a.name}',false)">거절</button>
+                </div>` : ""}
+            </div>`).join("")}
+        </div>` : `<div style="font-size:12px;color:var(--ink-faint);margin-top:8px">아직 지원자가 없습니다</div>`}
+    </div>`;
+  }).join("");
+  calcStats();
+}
+
+function handleApplicant(jobId, name, accept) {
+  const job = jobs.find(j => j.id === jobId);
+  const app = job.applicants.find(a => a.name === name);
+  app.accepted = accept;
+  if (accept) {
+    job.status = "matched";
+    adminStats.matched++;
+    toast(`${name}님 수락 완료 · 카카오로 결과 발송`, "ti-check");
+    notifyLog.unshift({ time: nowTime(), name, job: job.biz, status: "매칭됨", sc: "badge-matched" });
+  } else {
+    toast(`${name}님 거절 처리됨`, "ti-x");
+  }
+  renderOwnerJobs();
+  calcStats();
+  syncAdminStats();
+}
+
+function postJob() {
+  const type  = document.getElementById("inp-type").value;
+  const biz   = document.getElementById("inp-biz").value.trim()  || "내 가게";
+  const date  = document.getElementById("inp-date").value.trim() || "오늘 12:00~14:00";
+  const pay   = document.getElementById("inp-pay").value.trim()  || "12,000원";
+  const count = parseInt(document.getElementById("inp-count").value) || 1;
+  const note  = document.getElementById("inp-note").value.trim() || "자세한 내용은 채팅으로 문의하세요.";
+
+  const btn = document.getElementById("post-btn");
+  btn.disabled = true;
+
+  const overlay = document.getElementById("sending-overlay");
+  const kakaoResult = document.getElementById("kakao-result");
+  kakaoResult.style.display = "none";
+  overlay.classList.add("show");
+
+  const target = Math.floor(Math.random() * 9) + 10;
+  let n = 0;
+  const counter = document.getElementById("send-counter");
+  const label   = document.getElementById("send-label");
+
+  const iv = setInterval(() => {
+    n = Math.min(n + Math.floor(Math.random() * 3) + 1, target);
+    counter.textContent = n + "명";
+    if (n >= target) {
+      clearInterval(iv);
+      label.textContent = "발송 완료!";
+      setTimeout(() => {
+        overlay.classList.remove("show");
+        showKakaoResult({ type, biz, date, pay, count, note }, target);
+        const newJob = { id: Date.now(), type, biz, date, pay, count, note, dist: "현위치 근처", status: "open", applicants: [] };
+        jobs.unshift(newJob);
+        adminStats.posts++;
+        adminStats.sent += target;
+        document.getElementById("o-stat-sent").textContent =
+          parseInt(document.getElementById("o-stat-sent").textContent) + target;
+        renderOwnerJobs();
+        syncAdminStats();
+        toast(`공고 등록 완료 · ${target}명에게 발송`, "ti-send");
+        btn.disabled = false;
+        label.textContent = "반경 1km 이내 시니어에게 발송 중…";
+        counter.textContent = "0명";
+      }, 600);
+    }
+  }, 130);
+}
+
+function showKakaoResult(data, count) {
+  const t = nowTime();
+  const kakaoResult = document.getElementById("kakao-result");
+  document.getElementById("kakao-msg").innerHTML =
+    `[단골알바] 📣 <strong>내 근처 새 알바 떴어요!</strong><br><br>` +
+    `📍 <strong>${data.biz} · ${data.type}</strong><br>` +
+    `⏰ ${data.date}<br>` +
+    `💰 ${data.pay} · ${data.count}명 구함<br><br>` +
+    `${data.note}<br><br>` +
+    `👉 아래 버튼으로 바로 신청하세요`;
+  document.getElementById("kakao-time").textContent = `${t} · 반경 1km 이내 발송`;
+  document.getElementById("success-count").textContent = count;
+
+  // Animate kakao waves
+  const kw1 = document.getElementById("kw1");
+  const kw2 = document.getElementById("kw2");
+  function animWave(el, size, delay) {
+    el.style.cssText = `width:${size}px;height:${size}px;right:${-size/2}px;top:${-size/2}px;animation:kakaoPulse 2s ease-out ${delay}s infinite`;
+  }
+  animWave(kw1, 90, 0);
+  animWave(kw2, 130, 0.5);
+
+  kakaoResult.style.display = "block";
+}
+
+/* ══════════════════════════ SENIOR ══════════════════════════ */
+function renderSenior() {
+  renderSeniorKakao();
+  renderSeniorJobs();
+}
+
+function renderSeniorKakao() {
+  const el = document.getElementById("senior-kakao-list");
+  const visible = jobs.filter(j => j.status === "open").slice(0, 2);
+  if (!visible.length) {
+    el.innerHTML = `<div class="empty-state"><i class="ti ti-bell-off"></i>새 알림이 없습니다</div>`;
+    return;
+  }
+  const t = nowTime();
+  el.innerHTML = visible.map(j => `
+    <div class="kakao-panel" style="margin-bottom:12px">
+      <div class="kakao-header">
+        <div class="kakao-icon"><i class="ti ti-brand-kakao" aria-hidden="true"></i></div>
+        <div class="kakao-brand">단골알바 알림</div>
+      </div>
+      <div class="kakao-body">
+        [단골알바] 📣 <strong>내 근처 새 알바 떴어요!</strong><br><br>
+        📍 <strong>${j.biz} · ${j.type}</strong><br>
+        ⏰ ${j.date}<br>
+        💰 ${j.pay} · ${j.dist}<br><br>
+        ${j.note}
+      </div>
+      <div class="kakao-time">${t} · ${j.dist}</div>
+    </div>`).join("");
+}
+
+function renderSeniorJobs() {
+  const el = document.getElementById("senior-job-list");
+  if (!jobs.length) {
+    el.innerHTML = `<div class="empty-state"><i class="ti ti-clipboard-off"></i>근처 공고가 없습니다</div>`;
+    return;
+  }
+  el.innerHTML = jobs.map(j => {
+    const myApp = j.applicants.find(a => a.name === seniorName);
+    const applied  = myApp?.applied;
+    const accepted = myApp?.accepted;
+    const matched  = j.status === "matched";
+    return `
+    <div class="job-card ${applied ? "is-applied" : ""}" id="sjob-${j.id}">
+      <div class="job-card-header">
+        <div class="job-biz">${j.biz}</div>
+        <span class="badge ${matched ? "badge-matched" : applied ? "badge-applied" : "badge-open"}">
+          ${matched ? "매칭완료" : applied ? "신청완료" : "모집중"}
+        </span>
+      </div>
+      <div class="job-type">${j.type}</div>
+      <div class="job-chips">
+        <span class="job-chip"><i class="ti ti-clock" aria-hidden="true"></i>${j.date}</span>
+        <span class="job-chip"><i class="ti ti-map-pin" aria-hidden="true"></i>${j.dist}</span>
+        ${accepted === true ? `<span class="job-chip" style="color:var(--success)"><i class="ti ti-check" aria-hidden="true"></i>수락됨</span>` : ""}
+      </div>
+      <div class="job-pay">${j.pay}<span style="font-size:13px;font-weight:400;color:var(--ink-light);font-family:'Noto Sans KR',sans-serif"> / 시간</span></div>
+      <div class="job-note">${j.note}</div>
+      ${!applied && !matched ? `
+        <button class="btn-outline" onclick="applyJob(${j.id})">
+          <i class="ti ti-send" aria-hidden="true"></i>한 번에 신청하기 →
+        </button>` : ""}
+    </div>`;
+  }).join("");
+}
+
+function applyJob(jobId) {
+  const job = jobs.find(j => j.id === jobId);
+  if (!job || job.status === "matched") return;
+  const existing = job.applicants.find(a => a.name === seniorName);
+  if (existing) return;
+
+  job.applicants.push({ name: seniorName, age: 67, avatarClass: "avatar-amber", applied: true, accepted: null });
+  notifyLog.unshift({ time: nowTime(), name: seniorName, job: job.biz, status: "지원함", sc: "badge-applied" });
+  adminStats.sent++;
+
+  renderSeniorJobs();
+  toast(`${job.biz}에 신청 완료! 점주에게 카카오 알림 발송됨`, "ti-check");
+}
+
+/* ══════════════════════════ ADMIN ══════════════════════════ */
+function syncAdminStats() {
+  document.getElementById("a-stat1").textContent = adminStats.posts;
+  document.getElementById("a-stat2").textContent = adminStats.sent;
+  document.getElementById("a-stat3").textContent = adminStats.matched;
+}
+
+function renderAdmin() {
+  syncAdminStats();
+
+  // Notify log
+  const logEl = document.getElementById("notify-log");
+  logEl.innerHTML = notifyLog.slice(0, 10).map(n => `
+    <div class="log-item">
+      <div class="log-time">${n.time}</div>
+      <div class="avatar ${SENIORS.find(s=>s.name===n.name)?.avatarClass || "avatar-gray"}" style="width:30px;height:30px;font-size:11px">${n.name[0]}</div>
+      <div class="log-info">
+        <div class="log-name">${n.name}</div>
+        <div class="log-sub">${n.job}</div>
+      </div>
+      <span class="badge ${n.sc}">${n.status}</span>
+    </div>`).join("");
+
+  // Senior pool
+  const poolEl = document.getElementById("senior-pool");
+  poolEl.innerHTML = SENIORS.map(s => `
+    <div class="pool-item">
+      <div class="avatar ${s.avatarClass}" style="width:38px;height:38px;font-size:13px">${s.name[0]}</div>
+      <div class="pool-info">
+        <div class="pool-name">${s.name} <span style="font-weight:400;color:var(--ink-light);font-size:13px">${s.age}세</span></div>
+        <div class="pool-sub">${s.dist} · ${s.available}</div>
+        <div class="pool-tags">${s.skills.map(sk => `<span class="pool-tag">${sk}</span>`).join("")}</div>
+      </div>
+      <span class="badge badge-active">활성</span>
+    </div>`).join("");
+}
+
+/* ── KAKAO WAVE KEYFRAME (injected) ── */
+const ks = document.createElement("style");
+ks.textContent = `@keyframes kakaoPulse { 0%{transform:scale(0.4);opacity:0.5} 100%{transform:scale(1);opacity:0} }`;
+document.head.appendChild(ks);
+
+/* ── INIT ── */
+renderOwnerJobs();
+calcStats();
+</script>
+</body>
+</html>
